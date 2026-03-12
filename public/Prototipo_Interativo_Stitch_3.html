@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VetClinic Manager - Espaço do Veterinário</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary: #064e3b;--primary-light: #10b981;--primary-hover: #065f46;
+            --background: #f8fafc;
+            --sidebar: #022c22;--accent: #10b981;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .timeline-slot::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e2e8f0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -13px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid var(--primary-light);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="h-screen overflow-hidden flex">
+<aside class="w-64 bg-[var(--sidebar)] text-white flex flex-col shrink-0">
+<div class="p-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-400 text-3xl">pets</span>
+<span class="font-bold text-xl tracking-tight">VetClinic</span>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-emerald-100 hover:bg-white/10 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-medium">Início</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-emerald-600 text-white rounded-xl transition-all shadow-lg shadow-emerald-950/20" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-medium">Minha Agenda</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-emerald-100 hover:bg-white/10 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-medium">Pacientes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-emerald-100 hover:bg-white/10 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-medium">Prontuários</span>
+</a>
+<div class="pt-8 pb-4">
+<p class="px-4 text-xs font-semibold uppercase tracking-wider text-emerald-400/50">Administração</p>
+</div>
+<a class="flex items-center gap-3 px-4 py-3 text-emerald-100 hover:bg-white/10 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Configurações</span>
+</a>
+</nav>
+<div class="p-4 mt-auto">
+<div class="bg-emerald-900/50 rounded-2xl p-4 mb-4">
+<div class="flex items-center gap-3 mb-2">
+<img alt="Dr. Julian" class="w-10 h-10 rounded-full border-2 border-emerald-500/50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyk-ON0IH7LD8a4dD2NEk7mPq7BvdFXDDhfHmx3UxAv7CXI5bN4U5Unmyg0qqHWxpQ0P1r2lFmYo3GTaw516gsBiToX004OkGMui_9VVrJWT88yc6MKKD_SZbpy3nV5_bgnVL3OHd9Mrc_p_vh7Q8XpyFx6xbHui9Dcg-CYWYDI2eq-FPIhvCuLSCwOV0oyGd4813iPMwUxbQidYcz8r5PRCumAK4BJgDLBAAt6TRUOHjCvQR3EA8eL0pAMgQ6oqFcHFj9Mw5UKzk"/>
+<div>
+<p class="text-sm font-semibold">Dr. Julian Vance</p>
+<p class="text-[10px] text-emerald-300">Veterinário Sênior</p>
+</div>
+</div>
+</div>
+<button class="flex items-center gap-3 px-4 py-3 text-red-300 hover:bg-red-950/30 w-full rounded-xl transition-all">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-medium">Sair</span>
+</button>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full bg-[#f1f5f9] overflow-hidden">
+<header class="h-16 bg-[var(--sidebar)] border-b border-emerald-800 flex items-center justify-between px-8 shrink-0">
+<h1 class="text-lg font-semibold text-white">Espaço do Veterinário</h1>
+<div class="flex items-center gap-4">
+<button class="p-2 text-emerald-200 hover:text-emerald-400 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-[1px] bg-emerald-800"></div>
+<div class="text-right">
+<p class="text-xs font-medium text-emerald-300">Segunda-feira, 23 Out</p>
+<p class="text-sm font-bold text-white">09:42 AM</p>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+<div class="grid grid-cols-12 gap-6">
+<div class="col-span-8 space-y-6">
+<section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex">
+<div class="w-1/3 relative bg-slate-100">
+<img alt="Beagle" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCW8Ay36_sL1qN6yXBSqwc-PtPoxZWuvwf5Ns7US-X9Xxb1fsFV1gWFPXMHFEhAa0YR6TGk549ICkLkk2xzaS34tshD2oD46coXbxVm75Ok9PW4BAVyjSDNsFIh5LKxU7CoLvqHXm1nukxpSES_LuttsuB0fnEGCkHqAfW6doCcjvOA7gGjnrxZ1VFvTPTMZnVigwnGuUQgvUL7soTVNurp233nzU_UZjddH1ALANmX69JKXHQhTPAQEeVaBSNZE36OtLPfga9FkLw"/>
+<div class="absolute top-4 left-4 bg-emerald-600 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide shadow-sm">
+                            Próximo Paciente
+                        </div>
+</div>
+<div class="w-2/3 p-6 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h2 class="text-2xl font-bold text-slate-800">Oliver</h2>
+<p class="text-emerald-600 font-medium">Beagle • 4 anos e 2 meses</p>
+</div>
+<button class="bg-emerald-50 text-emerald-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-100 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">history</span>
+                                    Ver Histórico Completo
+                                </button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+<p class="text-[10px] uppercase font-bold text-slate-400 mb-1">Proprietário</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-slate-500">person</span>
+<span class="text-sm font-medium text-slate-700">Sarah Jenkins</span>
+</div>
+</div>
+<div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+<p class="text-[10px] uppercase font-bold text-slate-400 mb-1">Peso</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-slate-500">monitor_weight</span>
+<span class="text-sm font-medium text-slate-700">14.2 kg (Estável)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex gap-3 mt-6">
+<span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1 rounded-full font-medium italic">Check-up Regular</span>
+<span class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-medium italic">Leve infecção de ouvido?</span>
+</div>
+</div>
+</section>
+<section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-slate-800 flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-600">edit_note</span>
+                            Sessão de Atendimento
+                        </h3>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-slate-100 rounded text-slate-400"><span class="material-symbols-outlined text-xl">format_bold</span></button>
+<button class="p-1.5 hover:bg-slate-100 rounded text-slate-400"><span class="material-symbols-outlined text-xl">format_italic</span></button>
+<button class="p-1.5 hover:bg-slate-100 rounded text-slate-400"><span class="material-symbols-outlined text-xl">format_list_bulleted</span></button>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-bold text-slate-400 uppercase mb-2">Observações Clínicas</label>
+<textarea class="w-full border-slate-200 rounded-xl focus:ring-emerald-500 focus:border-emerald-500 text-sm" placeholder="Descreva sintomas, comportamento e achados do exame físico..." rows="4"></textarea>
+</div>
+<div>
+<label class="block text-xs font-bold text-slate-400 uppercase mb-2">Prescrições &amp; Procedimentos</label>
+<textarea class="w-full border-slate-200 rounded-xl focus:ring-emerald-500 focus:border-emerald-500 text-sm" placeholder="Insira nomes de medicamentos, dosagens ou detalhes cirúrgicos..." rows="3"></textarea>
+</div>
+<div class="flex justify-end gap-3 pt-2">
+<button class="px-6 py-2 border border-slate-200 rounded-xl text-slate-600 font-semibold text-sm hover:bg-slate-50 transition-colors">Rascunho</button>
+<button class="px-6 py-2 bg-emerald-700 text-white rounded-xl font-semibold text-sm hover:bg-emerald-800 transition-colors shadow-lg shadow-emerald-200">Salvar Sessão</button>
+</div>
+</div>
+</section>
+<section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+<div class="flex border-b border-slate-100">
+<button class="px-6 py-4 text-sm font-bold text-emerald-700 border-b-2 border-emerald-700">Visitas Anteriores</button>
+<button class="px-6 py-4 text-sm font-medium text-slate-400 hover:text-slate-600 transition-colors">Vacinas</button>
+<button class="px-6 py-4 text-sm font-medium text-slate-400 hover:text-slate-600 transition-colors">Resultados de Laboratório</button>
+</div>
+<div class="p-6">
+<div class="space-y-4">
+<div class="flex gap-4 items-start p-4 bg-slate-50 rounded-xl">
+<div class="w-20 shrink-0 text-center">
+<p class="text-sm font-bold text-slate-800">12 Set</p>
+<p class="text-[10px] text-slate-400">2023</p>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-slate-700">Vacinação Anual</h4>
+<p class="text-xs text-slate-500 mt-1 italic">"Paciente saudável, sem reações adversas às vacinas. Peso estável."</p>
+</div>
+<button class="text-emerald-700 font-bold text-xs">Detalhes</button>
+</div>
+<div class="flex gap-4 items-start p-4 border border-slate-100 rounded-xl">
+<div class="w-20 shrink-0 text-center">
+<p class="text-sm font-bold text-slate-800">05 Jun</p>
+<p class="text-[10px] text-slate-400">2023</p>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-slate-700">Pequena Lesão na Pata</h4>
+<p class="text-xs text-slate-500 mt-1 italic">"Limpeza de pequena laceração na pata dianteira direita. Prescrito antisséptico tópico."</p>
+</div>
+<button class="text-emerald-700 font-bold text-xs">Detalhes</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="col-span-4 h-full">
+<div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 h-full flex flex-col">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-bold text-slate-800 flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-600">schedule</span>
+                            Agenda de Hoje
+                        </h3>
+<button class="text-xs font-bold text-emerald-700 hover:underline">Ver Tudo</button>
+</div>
+<div class="flex-1 relative ml-4 space-y-8 overflow-y-auto pr-2 custom-scrollbar">
+<div class="relative timeline-slot pl-6">
+<div class="timeline-dot"></div>
+<div class="text-[11px] font-bold text-slate-400 uppercase mb-1">09:00 AM</div>
+<div class="bg-emerald-50 border-l-4 border-emerald-500 p-3 rounded-r-xl">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold text-emerald-900">Oliver (Beagle)</p>
+<p class="text-xs text-emerald-700">Consulta</p>
+</div>
+<span class="bg-emerald-600/10 text-emerald-600 px-1.5 py-0.5 rounded text-[10px] font-bold">Em curso</span>
+</div>
+</div>
+</div>
+<div class="relative timeline-slot pl-6">
+<div class="timeline-dot !border-emerald-400"></div>
+<div class="text-[11px] font-bold text-slate-400 uppercase mb-1">10:00 AM</div>
+<div class="bg-slate-50 border-l-4 border-emerald-400 p-3 rounded-r-xl">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold text-slate-800">Luna (Siamês)</p>
+<p class="text-xs text-slate-500">Limpeza Dental</p>
+</div>
+<span class="text-emerald-600 font-bold text-[10px]">Próximo</span>
+</div>
+</div>
+</div>
+<div class="relative timeline-slot pl-6">
+<div class="timeline-dot !border-blue-500"></div>
+<div class="text-[11px] font-bold text-slate-400 uppercase mb-1">11:30 AM</div>
+<div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded-r-xl">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold text-blue-900">Max (Golden Retriever)</p>
+<p class="text-xs text-blue-700">Cirurgia de Castração</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative timeline-slot pl-6">
+<div class="timeline-dot !border-slate-300 !bg-slate-300"></div>
+<div class="text-[11px] font-bold text-slate-400 uppercase mb-1">01:00 PM</div>
+<div class="bg-slate-100 border-l-4 border-slate-300 p-3 rounded-r-xl opacity-60">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold text-slate-500">Intervalo</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative timeline-slot pl-6">
+<div class="timeline-dot !border-emerald-500"></div>
+<div class="text-[11px] font-bold text-slate-400 uppercase mb-1">02:00 PM</div>
+<div class="bg-emerald-50 border-l-4 border-emerald-500 p-3 rounded-r-xl">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold text-emerald-900">Milo (Bulldog Francês)</p>
+<p class="text-xs text-emerald-700">Consulta</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-slate-100 text-center">
+<button class="w-full py-3 bg-emerald-900 text-white rounded-xl font-semibold text-sm hover:bg-emerald-950 transition-colors">
+                            Adicionar Urgência
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>
